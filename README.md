@@ -1,4 +1,10 @@
 tic_tac_toe
 ===========
 
-A Symfony project created on October 29, 2015, 9:45 am.
+A bad implementation of Tic Tac Toe writen in Symfony.
+
+What we would like you to do?
+fix it. make it better. tell us what's wrong and why.
+
+good luck
+Evil Bunnies
