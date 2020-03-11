@@ -9,7 +9,6 @@
 namespace AppBundle\Tic;
 
 
-use Assetic\Cache\ArrayCache;
 
 class Board
 {
