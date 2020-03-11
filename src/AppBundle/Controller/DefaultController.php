@@ -70,6 +70,7 @@ class DefaultController extends Controller
             'AppBundle:Default:end.html.twig', array(
             'message' => $message,
             'grid' => $game->getBoard()->getGrid(),
+            'size' => $this->get('app.model.game')->getSize()
         ));
     }
 
