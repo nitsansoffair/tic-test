@@ -3,7 +3,7 @@
         {% for row in grid %}
             <tr>
                 {% for cell in row %}
-                    <td width="50px" height="50px"><center>&nbsp; {{ cell }}&nbsp; </center></td>
+                    <td width={{ size }} height={{ size }}><center>&nbsp; {{ cell }}&nbsp; </center></td>
                 {% endfor %}
             </tr>
         {% endfor %}

@@ -74,4 +74,12 @@ class GameModel
         $this->game->start();
         $this->storeGame();
     }
+
+    public function setSize($size){
+        $this->session->set('size', $size);
+    }
+
+    public function getSize(){
+        return $this->session->get('size');
+    }
 }
