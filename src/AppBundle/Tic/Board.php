@@ -19,8 +19,6 @@ class Board
     const O = 'o';
     const X = 'x';
 
-    public $colors;
-
     /**
      * Board constructor.
      */
