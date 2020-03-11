@@ -3,7 +3,7 @@
         {% for row in grid %}
             <tr>
                 {% for cell in row %}
-                    <td width={{ size }} height={{ size }}><center>&nbsp; {{ cell }}&nbsp; </center></td>
+                    <td width={{ size }} height={{ size }} style="color: {{ cell | lower == 'x' ? 'red' : 'blue' }}"><center>&nbsp; {{ cell }}&nbsp; </center></td>
                 {% endfor %}
             </tr>
         {% endfor %}

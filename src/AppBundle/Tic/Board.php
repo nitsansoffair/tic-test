@@ -9,6 +9,8 @@
 namespace AppBundle\Tic;
 
 
+use Assetic\Cache\ArrayCache;
+
 class Board
 {
     private $grid;
@@ -16,6 +18,8 @@ class Board
     const NOTHING = '';
     const O = 'o';
     const X = 'x';
+
+    public $colors;
 
     /**
      * Board constructor.
@@ -157,6 +161,34 @@ class Board
     public function getGrid()
     {
         return $this->grid;
+    }
+
+    public function markWinner(){
+        for($i = 0; $i < 3; $i++) {
+            if($this->isColWon($i)){
+                $this->setSquare(0, $i, strtoupper($this->getSquare(0, $i)));
+                $this->setSquare(1, $i, strtoupper($this->getSquare(1, $i)));
+                $this->setSquare(2, $i, strtoupper($this->getSquare(2, $i)));
+            }
+
+            if($this->isRowWon($i)){
+                $this->setSquare($i, 0, strtoupper($this->getSquare($i, 0)));
+                $this->setSquare($i, 1, strtoupper($this->getSquare($i, 1)));
+                $this->setSquare($i, 2, strtoupper($this->getSquare($i, 2)));
+            }
+        }
+
+        if($this->isMainDiagonWon()){
+            $this->setSquare(0, 0, strtoupper($this->getSquare(0, 0)));
+            $this->setSquare(1, 1, strtoupper($this->getSquare(1, 1)));
+            $this->setSquare(2, 2, strtoupper($this->getSquare(2, 2)));
+        }
+
+        if($this->isSecondDiagonWon()){
+            $this->setSquare(0, 2, strtoupper($this->getSquare(0, 2)));
+            $this->setSquare(1, 1, strtoupper($this->getSquare(1, 1)));
+            $this->setSquare(2, 0, strtoupper($this->getSquare(2, 0)));
+        }
     }
 
 

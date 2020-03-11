@@ -66,6 +66,8 @@ class DefaultController extends Controller
             $message = 'Game Over: ' . $game->getWinner() . ' has won!';
         }
 
+        $game->getBoard()->markWinner();
+
         return $this->render(
             'AppBundle:Default:end.html.twig', array(
             'message' => $message,
