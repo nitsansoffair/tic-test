@@ -75,11 +75,19 @@ class GameModel
         $this->storeGame();
     }
 
-    public function setSize($size){
-        $this->session->set('size', $size);
+    public function setCols($cols){
+        $this->session->set('cols', $cols);
     }
 
-    public function getSize(){
-        return $this->session->get('size');
+    public function getCols(){
+        $cols = $this->session->get('cols');
+
+        $array = array();
+
+        for($i = 0; $i < $cols; $i++){
+            array_push($array, $i);
+        }
+
+        return $array;
     }
 }

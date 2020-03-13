@@ -3,7 +3,7 @@ default:
     defaults: { _controller: "AppBundle:Default:index" }
 
 start:
-    path: /start/{size}
+    path: /start/{cols}
     defaults: { _controller: "AppBundle:Default:start" }
 
 play:

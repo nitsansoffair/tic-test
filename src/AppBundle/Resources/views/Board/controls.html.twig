@@ -1,19 +1,11 @@
 <div class="controls">
     <table>
-        <tr>
-            <td><a href="{{ path('play', {'row': 0, 'col': 0}) }}">*</a></td>
-            <td><a href="{{ path('play', {'row': 0, 'col': 1}) }}">*</a></td>
-            <td><a href="{{ path('play', {'row': 0, 'col': 2}) }}">*</a></td>
-        </tr>
-        <tr>
-            <td><a href="{{ path('play', {'row': 1, 'col': 0}) }}">*</a></td>
-            <td><a href="{{ path('play', {'row': 1, 'col': 1}) }}">*</a></td>
-            <td><a href="{{ path('play', {'row': 1, 'col': 2}) }}">*</a></td>
-        </tr>
-        <tr>
-            <td><a href="{{ path('play', {'row': 2, 'col': 0}) }}">*</a></td>
-            <td><a href="{{ path('play', {'row': 2, 'col': 1}) }}">*</a></td>
-            <td><a href="{{ path('play', {'row': 2, 'col': 2}) }}">*</a></td>
-        </tr>
+        {% for i in cols %}
+            <tr>
+                {% for j in cols %}
+                    <td><a href="{{ path('play', {'row': i, 'col': j}) }}">*</a></td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
     </table>
 </div>
