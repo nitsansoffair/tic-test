@@ -18,28 +18,32 @@ class Board
     const O = 'o';
     const X = 'x';
 
+    public $cols = 3;
+
     /**
      * Board constructor.
+     * @param int $cols
      */
-    public function __construct()
+    public function __construct($cols)
     {
+        $this->cols = $cols;
         $this->initGrid();
         $this->clear();
     }
 
     private function initGrid()
     {
-        $this->grid = array(
-            array(),
-            array(),
-            array(),
-        );
+        $this->grid = array();
+
+        for($i = 0; $i < $this->cols; $i++){
+            array_push($this->grid, array());
+        }
     }
 
     public function clear()
     {
-        for($i = 0; $i < 3; $i++) {
-            for($j = 0; $j < 3; $j++) {
+        for($i = 0; $i < $this->cols; $i++) {
+            for($j = 0; $j < $this->cols; $j++) {
                 $this->setSquare($i, $j, self::NOTHING);
             }
         }
@@ -58,8 +62,8 @@ class Board
 
     public function isFull()
     {
-        for($i = 0; $i < 3; $i++) {
-            for($j = 0; $j < 3; $j++) {
+        for($i = 0; $i < $this->cols; $i++) {
+            for($j = 0; $j < $this->cols; $j++) {
                 if(self::NOTHING == $this->getSquare($i, $j)) {
                     return false;
                 }
@@ -70,8 +74,8 @@ class Board
 
     public function isEmpty()
     {
-        for($i = 0; $i < 3; $i++) {
-            for($j = 0; $j < 3; $j++) {
+        for($i = 0; $i < $this->cols; $i++) {
+            for($j = 0; $j < $this->cols; $j++) {
                 if(self::NOTHING != $this->getSquare($i, $j)) {
                     return false;
                 }
@@ -88,7 +92,7 @@ class Board
     public function isBoardWon()
     {
         $res = false;
-        for($i = 0; $i < 3; $i++) {
+        for($i = 0; $i < $this->cols; $i++) {
             $res = $res || $this->isColWon($i) || $this->isRowWon($i);
         }
         $res = $res || $this->isMainDiagonWon();
@@ -102,7 +106,7 @@ class Board
         if(self::NOTHING == $square) {
             return false;
         }
-        for($i = 1; $i < 3; $i++) {
+        for($i = 1; $i < $this->cols; $i++) {
             if($square != $this->getSquare($row, $i)) {
                 return false;
             }
@@ -116,7 +120,7 @@ class Board
         if(self::NOTHING == $square) {
             return false;
         }
-        for($i = 1; $i < 3; $i++) {
+        for($i = 1; $i < $this->cols; $i++) {
             if($square != $this->getSquare($i, $col)) {
                 return false;
             }
@@ -130,7 +134,7 @@ class Board
         if(self::NOTHING == $square) {
             return false;
         }
-        for($i = 1; $i < 3; $i++) {
+        for($i = 1; $i < $this->cols; $i++) {
             if($square != $this->getSquare($i, $i)) {
                 return false;
             }
@@ -140,12 +144,12 @@ class Board
 
     public function isSecondDiagonWon()
     {
-        $square = $this->getSquare(0, 2);
+        $square = $this->getSquare(0, $this->cols - 1);
         if(self::NOTHING == $square) {
             return false;
         }
-        for($i = 1; $i >= 0; $i--) {
-            if($square != $this->getSquare($i, $i)) {
+        for($i = 1; $i < $this->cols; $i++) {
+            if($square != $this->getSquare($i, $this->cols - 1 - $i)) {
                 return false;
             }
         }
@@ -161,30 +165,32 @@ class Board
     }
 
     public function markWinner(){
-        for($i = 0; $i < 3; $i++) {
-            if($this->isColWon($i)){
-                $this->setSquare(0, $i, strtoupper($this->getSquare(0, $i)));
-                $this->setSquare(1, $i, strtoupper($this->getSquare(1, $i)));
-                $this->setSquare(2, $i, strtoupper($this->getSquare(2, $i)));
+        for($col = 0; $col < $this->cols; $col++) {
+            if ($this->isColWon($col)) {
+                for ($row = 0; $row < $this->cols; $row++) {
+                    $this->setSquare($row, $col, strtoupper($this->getSquare($row, $col)));
+                }
             }
+        }
 
-            if($this->isRowWon($i)){
-                $this->setSquare($i, 0, strtoupper($this->getSquare($i, 0)));
-                $this->setSquare($i, 1, strtoupper($this->getSquare($i, 1)));
-                $this->setSquare($i, 2, strtoupper($this->getSquare($i, 2)));
+        for($row = 0; $row < $this->cols; $row++) {
+            if($this->isRowWon($row)){
+                for($col = 0; $col < $this->cols; $col++) {
+                    $this->setSquare($row, $col, strtoupper($this->getSquare($row, $col)));
+                }
             }
         }
 
         if($this->isMainDiagonWon()){
-            $this->setSquare(0, 0, strtoupper($this->getSquare(0, 0)));
-            $this->setSquare(1, 1, strtoupper($this->getSquare(1, 1)));
-            $this->setSquare(2, 2, strtoupper($this->getSquare(2, 2)));
+            for($i = 0; $i < $this->cols; $i++) {
+                $this->setSquare($i, $i, strtoupper($this->getSquare($i, $i)));
+            }
         }
 
         if($this->isSecondDiagonWon()){
-            $this->setSquare(0, 2, strtoupper($this->getSquare(0, 2)));
-            $this->setSquare(1, 1, strtoupper($this->getSquare(1, 1)));
-            $this->setSquare(2, 0, strtoupper($this->getSquare(2, 0)));
+            for($i = 0; $i < $this->cols; $i++) {
+                $this->setSquare($i, $this->cols - 1 - $i, strtoupper($this->getSquare($i, $this->cols - 1 - $i)));
+            }
         }
     }
 

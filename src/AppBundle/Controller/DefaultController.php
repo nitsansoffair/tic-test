@@ -18,7 +18,7 @@ class DefaultController extends Controller
     public function startAction($cols)
     {
         $this->get('app.model.game')->setCols($cols);
-        $this->get('app.model.game')->startGame();
+        $this->get('app.model.game')->startGame($cols);
         $game = $this->get('app.model.game')->getGame();
 
         return $this->render(

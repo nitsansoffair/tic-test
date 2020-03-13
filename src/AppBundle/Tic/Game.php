@@ -21,9 +21,9 @@ class Game
     const STATE_TIE = 2;
     const STATE_WON = 3;
 
-    public function start()
+    public function start($cols)
     {
-        $this->board = new Board();
+        $this->board = new Board($cols);
         $this->currentPlayer = Board::X;
     }
 
@@ -125,9 +125,9 @@ class Game
         return json_encode($res);
     }
 
-    public function unserialize($json)
+    public function unserialize($json, $cols)
     {
-        $this->start();
+        $this->start($cols);
         $data = json_decode($json, true);
         $this->board->loadBoard($data['grid']);
         $this->currentPlayer = $data['currentPlayer'];

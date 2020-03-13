@@ -50,9 +50,10 @@ class GameModel
 
     private function loadGame()
     {
-        $json = $this->session->get('game', $this->emptyGameJson());
+        $cols = $this->session->get('cols');
+        $json = $this->session->get('game', $this->emptyGameJson($cols));
         $game = new Game();
-        $game->unserialize($json);
+        $game->unserialize($json, $cols);
         $this->game = $game;
         return $this->game;
     }
@@ -62,16 +63,16 @@ class GameModel
         $this->session->set('game', $this->game->serialize());
     }
 
-    private function emptyGameJson()
+    private function emptyGameJson($cols)
     {
         $game = new Game();
-        $game->start();
+        $game->start($cols);
         return $game->serialize();
     }
 
-    public function startGame()
+    public function startGame($cols)
     {
-        $this->game->start();
+        $this->game->start($cols);
         $this->storeGame();
     }
 

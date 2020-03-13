@@ -4,6 +4,6 @@
     {% include 'AppBundle:Board:board.html.twig' with grid %}
 
     end: {{ message }}<br/>
-    <a href="{{ path('start', { size: '50px' }) }}">start</a>
+    <a href="{{ path('start', { cols: '3' }) }}">start</a>
 {% endblock body %}
 
